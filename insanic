@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+
+
+from isc._utils import sout, serr, sinfo, validate_path
+from isc._utils import show_help
+from isc import conf
+from isc._generate_project import generate_project
+
+
+args = sys.argv[1:]
+args_length = len(sys.argv)
+
+accepted_options = {
+    "verbose":      ["-v", "--verbose"],                 # Verbose Mode
+    "help":         ["-h", "--help"],               # Show Help
+    "activate":     ["-a", "--activate"],           # Activate virtualenv after project generation
+    "no_venv":      ["--no-virtualenv"],            # Don't Generate Virtualenv
+    "no_install":   ["--no-install"]                # Don't Install project requirements
+}
+
+accepted_switch = {
+    "generate-model": ["-g", "--generate-model"],   # generate database model
+    "interpreter": ["-i", "--interpreter"],         # use different interpreter
+    "api-framework": ["--api-framework"],           # generate api framework
+    "api-framework": ["--api-framework"]            # generate api-framework
+}
+
+if args_length == 1 or args_length == 2:
+    show_help()
+    exit(0)
+else:
+    for key in accepted_options:
+        value = accepted_options[key]
+        for i in value:
+            if i in args:
+                if key == "help":
+                    show_help()
+                    exit(1)
+                conf.set("options", key, True)
+
+    for key in accepted_switch:
+        value = accepted_switch[key]
+        for i in value:
+            if i in args:
+                conf.set("switch", key, True)
+
+    for key in accepted_switch:
+        if conf.get("switch", key):
+            switch_used = accepted_switch[key]
+            args_index = 0
+            for i in switch_used:
+                try:
+                    args_index = args.index(i)
+                except ValueError:
+                    pass
+
+            if args_index == 0:
+                exit(0)
+
+            conf.set("project_switches",
+                     key,
+                     args[args_index + 1]
+            )
+
+    generate_project()
