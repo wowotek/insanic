@@ -12,7 +12,6 @@ class CONFIG:
 
     _switch = {
         "api-framework": False,
-        "api-framework": False,
         "generate-model": False,
         "interpreter": False
     }
@@ -24,7 +23,6 @@ class CONFIG:
     }
 
     _project_switches = {
-        "api-framework": _project["full_path"],
         "api-framework": _project["full_path"],
         "generate-model": _project["database"],
         "interpreter": _project["interpreter"]

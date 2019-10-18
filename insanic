@@ -9,6 +9,7 @@ from isc._utils import show_help
 from isc import conf
 from isc._generate_project import generate_project
 
+sout("INSANIC IS UNFINISHED PRODUCT ! USE WITH CAUTION !")
 
 args = sys.argv[1:]
 args_length = len(sys.argv)
@@ -25,7 +26,6 @@ accepted_switch = {
     "generate-model": ["-g", "--generate-model"],   # generate database model
     "interpreter": ["-i", "--interpreter"],         # use different interpreter
     "api-framework": ["--api-framework"],           # generate api framework
-    "api-framework": ["--api-framework"]            # generate api-framework
 }
 
 if args_length == 1 or args_length == 2:

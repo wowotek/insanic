@@ -70,6 +70,9 @@ def get_all_file(path):
 
 
 def replace_file(file, project_name, db_url):
+    if ".mwb" in file:
+        return
+
     data = None
     with open(file, "r") as f:
         data = f.readlines()
